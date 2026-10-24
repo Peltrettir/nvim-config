@@ -4,7 +4,7 @@
 local cache = {}
 local PERSONALE_ENV_KEY = 'PERSONALE'
 
----@class custom.utils
+---@class utils
 ---@field user_data_folder fun(): Path|nil, nil|message
 ---@field disk_root fun(): Path|nil, nil|message
 ---@field separator fun(): string|nil, nil|message

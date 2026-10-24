@@ -67,6 +67,20 @@ return {
         local dap = require 'dap'
         local dapui = require 'dapui'
 
+        -- dap.configurations.cs = {
+        --     {
+        --         type = 'coreclr',
+        --         name = 'Launch',
+        --         request = 'launch',
+        --         program = function()
+        --             return vim.fn.input('Path to dll: ', vim.fn.getcwd(), 'file')
+        --         end,
+        --         cwd = function()
+        --             return vim.fn.getcwd()
+        --         end,
+        --     },
+        -- }
+
         dap.set_log_level 'TRACE'
 
         -- Functions.register_lua_dap(dap)

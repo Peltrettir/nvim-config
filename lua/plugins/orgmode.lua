@@ -1,8 +1,8 @@
 ---@param folders string[]|nil
 ---@return string|nil, Path|nil, message|nil
 function get_folder(folders)
-    ---@type custom.utils
-    local utils = require 'custom.utils'
+    ---@type utils
+    local utils = require 'utils'
 
     local separator, error = utils.separator()
     if error ~= nil then

@@ -43,15 +43,11 @@ end
 add_runtimepath_folders()
 install_lazy()
 
-require 'custom.set'
-require 'custom.autocommands'
-require 'custom.keymap'
+require 'set'
+require 'autocommands'
+require 'keymap'
 require('lazy').setup({
-    -- require 'kickstart.plugins.debug',
-    -- require 'kickstart.plugins.indent_line',
-    -- require 'kickstart.plugins.lint',
-    -- require 'kickstart.plugins.autopairs',
-    { import = 'custom.plugins' },
+    { import = 'plugins' },
 }, {
     ui = {
         -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -69,7 +65,7 @@ require('lazy').setup({
             source = '📄',
             start = '🚀',
             task = '📌',
-            lazy = '💤 ',
+            lazy = '💤',
         },
     },
 })
