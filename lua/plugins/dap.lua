@@ -63,6 +63,7 @@ local Functions = {
 return {
     'mfussenegger/nvim-dap',
     enabled = true,
+    keys = { '<F5>', '<leader>b' },
     config = function()
         local dap = require 'dap'
         local dapui = require 'dapui'
