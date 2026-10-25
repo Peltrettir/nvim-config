@@ -14,23 +14,17 @@ function setup_powershell_options()
 end
 return {
     'akinsho/toggleterm.nvim',
+    -- shell options apply to :! too, so set them at startup rather than when toggleterm loads
     init = function()
-        local toggleterm_spawn = vim.api.nvim_create_augroup('toggleterm_spawn', {})
-        vim.api.nvim_create_autocmd('VimEnter', {
-            group = toggleterm_spawn,
-            pattern = '*',
-            callback = function()
-                local Terminal = require('toggleterm.terminal').Terminal
-                local term = Terminal:new()
-                -- term:spawn()
-            end,
-        })
-    end,
-    config = function()
         if vim.fn.has 'win32' == 1 then
             setup_powershell_options()
         end
-
+    end,
+    cmd = { 'ToggleTerm', 'TermExec' },
+    keys = {
+        { '<A-i>', mode = { 'n', 't' } },
+    },
+    config = function()
         require('toggleterm').setup {
             open_mapping = '<C-\\>',
             start_in_insert = true,
@@ -46,7 +40,7 @@ return {
 
         function _G.set_terminal_keymaps()
             local opts = { buffer = 0 }
-            vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+            vim.keymap.set('t', 'jj', [[<C-\><C-n>]], opts)
             vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
             vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
             vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
