@@ -1,3 +1,7 @@
+-- Workspace = `nvim` started with no file arguments in a directory that holds a solution.
+-- ponytail: only looks at cwd, not parent dirs; `nvim .` doesn't count
+local workspace = vim.fn.argc() == 0 and vim.fn.glob '*.sln*' ~= ''
+
 local function add_dotnet_mappings()
     local dotnet = require 'easy-dotnet'
 
@@ -26,6 +30,10 @@ return {
     {
         'GustavEikaas/easy-dotnet.nvim',
         enabled = true,
+        -- in a workspace: load right after startup, which preloads Roslyn on the solution
+        -- anywhere else: :Dotnet loads it on demand
+        event = workspace and 'VeryLazy' or nil,
+        cmd = 'Dotnet',
         dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
         config = function()
             local dotnet = require 'easy-dotnet'
