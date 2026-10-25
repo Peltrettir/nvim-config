@@ -25,11 +25,32 @@ return {
         { '<A-i>', mode = { 'n', 't' } },
     },
     config = function()
+        -- floating terminal size as a fraction of the editor; <A-f> cycles through these
+        local float_sizes = { 0.8, 1 }
+        local float_size = 1
+
         require('toggleterm').setup {
             open_mapping = '<C-\\>',
             start_in_insert = true,
             direction = 'float',
+            float_opts = {
+                -- the border takes one cell on each side, so 1 covers the whole editor
+                width = function()
+                    return math.floor((vim.o.columns - 2) * float_sizes[float_size])
+                end,
+                height = function()
+                    return math.floor((vim.o.lines - vim.o.cmdheight - 2) * float_sizes[float_size])
+                end,
+            },
         }
+
+        vim.keymap.set({ 'n', 't' }, '<A-f>', function()
+            float_size = float_size % #float_sizes + 1
+            local term = require('toggleterm.terminal').get(vim.b.toggle_number)
+            if term and term:is_float() then
+                require('toggleterm.ui').update_float(term)
+            end
+        end, { desc = 'Cycle floating terminal size' })
 
         vim.keymap.set({ 'n', 't' }, '<A-i>', function()
             require('toggleterm').toggle(1, nil, nil, 'float')
