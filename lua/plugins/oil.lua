@@ -7,8 +7,9 @@ return {
         -- Optional dependencies
         dependencies = { { 'nvim-mini/mini.icons', opts = {} } },
         -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
-        -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
-        lazy = false,
+        -- default_file_explorer is false, so oil never has to be loaded up front
+        cmd = 'Oil',
+        keys = { '<leader>e' },
         config = function()
             require('oil').setup {
                 -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
