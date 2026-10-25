@@ -50,8 +50,6 @@ return {
                 config = function(_, opts)
                     local plugin = require 'mason-tool-installer'
                     plugin.setup(opts)
-                    plugin.run_on_start()
-                    plugin.check_install(true, true)
                 end,
             },
         },
