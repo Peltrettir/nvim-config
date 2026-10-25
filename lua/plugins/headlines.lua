@@ -1,6 +1,7 @@
 return {
     {
         'lukas-reineke/headlines.nvim',
+        ft = { 'markdown', 'rmd', 'org' },
         dependencies = {
             'nvim-orgmode/orgmode', -- required
             'nvim-treesitter/nvim-treesitter',

@@ -72,6 +72,11 @@ return {
     },
     {
         'hamidi-dev/org-super-agenda.nvim',
+        cmd = 'OrgSuperAgenda',
+        keys = {
+            { '<leader>oa', '<cmd>OrgSuperAgenda<cr>', desc = '[o]rgmode [a]genda' },
+            { '<leader>oA', '<cmd>OrgSuperAgenda!<cr>', desc = '[o]rgmone [A]agenda fullscreen' },
+        },
         enabled = true, --got the agenda to find todos, but actions don't work. They seem to pick up the wrong line numbers, I don't know why
         dependencies = {
             'nvim-orgmode/orgmode', -- required
@@ -207,12 +212,11 @@ return {
                 show_other_group = true, -- show catch-all section
             }
 
-            vim.keymap.set('n', '<leader>oa', '<cmd>OrgSuperAgenda<cr>', { desc = '[o]rgmode [a]genda' })
-            vim.keymap.set('n', '<leader>oA', '<cmd>OrgSuperAgenda!<cr>', { desc = '[o]rgmone [A]agenda fullscreen' })
         end,
     },
     {
         'akinsho/org-bullets.nvim',
+        ft = 'org',
         config = function()
             require('org-bullets').setup {
                 symbols = {
@@ -231,20 +235,27 @@ return {
     },
     {
         'nvim-orgmode/telescope-orgmode.nvim',
-        event = 'VeryLazy',
+        keys = {
+            {
+                '<leader>so',
+                function()
+                    require('telescope').extensions.orgmode.search_headings()
+                end,
+                desc = '[S]earch [O]rgfiles',
+            },
+        },
         dependencies = {
             'nvim-orgmode/orgmode',
             'nvim-telescope/telescope.nvim',
         },
         config = function()
-            local telescope = require 'telescope'
-            telescope.load_extension 'orgmode'
-
-            vim.keymap.set('n', '<leader>so', telescope.extensions.orgmode.search_headings, { desc = '[S]earch [O]rgfiles' })
+            require('telescope').load_extension 'orgmode'
         end,
     },
     {
         'chipsenkbeil/org-roam.nvim',
+        ft = 'org',
+        keys = { { '<leader>n', desc = 'org-roam' } }, -- org-roam's default binding prefix
         tag = '0.2.0',
         dependencies = {
             {
