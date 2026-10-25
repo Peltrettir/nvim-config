@@ -5,12 +5,14 @@
 return {
     {
         'sindrets/diffview.nvim',
+        cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
         dependencies = {
             'nvim-tree/nvim-web-devicons',
         },
     },
     {
         'lewis6991/gitsigns.nvim',
+        event = { 'BufReadPre', 'BufNewFile' },
         opts = {
             on_attach = function(bufnr)
                 local gitsigns = require 'gitsigns'
